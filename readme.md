@@ -19,4 +19,9 @@ User class with static methods
 ------------------------------
 
 `User::login($login,$password)`
+
 Logs the user in, responds with the token, starts session - stored in `$_SESSION['token']`.
+
+`User::logout()`
+
+Destroys the token for the current session and `$_SESSION['token']`.

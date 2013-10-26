@@ -8,8 +8,10 @@ class User {
     $response = poster('user','login',array('login'=>$username,'password'=>$password));
     if(isset($response->body->token)):
       $_SESSION['token'] = $response->body->token;
+      return $response;
+    else:
+      return false;
     endif;
-    return $response;
   }
   
   static function logout()
