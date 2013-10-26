@@ -11,3 +11,12 @@ Dependencies
 ============
 
 I'm using UniRest (a lightweight HTTP request library). This dependency is referenced in the composer.json file, so if you have Composer (http://getcomposer.org/) installed, then I think you can just run `composer install` when inside this directory.
+
+Usage
+=====
+
+User class with static methods
+------------------------------
+
+`User::login($login,$password)`
+Logs the user in, responds with the token, starts session - stored in `$_SESSION['token']`.
