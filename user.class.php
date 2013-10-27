@@ -14,7 +14,7 @@ class User {
   
   static function logout()
   {
-    $token = $_SESSION['token'];
+    $token = sanitize($_SESSION['token']);
     unset($_SESSION['token']);
     $response = poster('user','logout',array('token'=>$token));
     return $response->body;
@@ -31,7 +31,7 @@ class User {
         $response = poster('user','get',array('token'=>$_SESSION['token']));
         return $response->body;
       } else {
-        throw new Exception('No token provided. Please provide one.');
+        throw new Exception('Unable to retrieve user information. No user is logged in.');
       }
     }
   }
