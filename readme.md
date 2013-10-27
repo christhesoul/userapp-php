@@ -25,3 +25,12 @@ Logs the user in, responds with the token, starts session - stored in `$_SESSION
 `User::logout()`
 
 Destroys the token for the current session and `$_SESSION['token']`.
+
+`User::resetPassword($login)`
+
+Takes one argument, being the username of the forgetful user. If successful, responds with token.
+
+`User::changePassword($new_password,$password_token)`
+
+Once you've got a password reset token from the `resetPassword()` method (see above), you can use this to reset a password here. Obviously, you'll need the user's preferred new password, too.
+

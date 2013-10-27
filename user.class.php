@@ -39,4 +39,11 @@ class User {
     return $response->body;
   }
   
+  static function changePassword($new_password,$password_token)
+  {
+    global $api_token;
+    $response = poster('user','changePassword',array('token'=>$api_token,'password_token'=>$password_token,'new_password'=>$new_password));
+    return $response->body;
+  }
+  
 }
