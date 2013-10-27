@@ -8,10 +8,8 @@ class User {
     $response = poster('user','login',array('login'=>$username,'password'=>$password));
     if(isset($response->body->token)):
       $_SESSION['token'] = $response->body->token;
-      return $response;
-    else:
-      return false;
     endif;
+    return $response->body;
   }
   
   static function logout()
@@ -22,13 +20,19 @@ class User {
     return $response->body;
   }
   
-  static function get()
+  static function get($array = array())
   {
-    if(isset($_SESSION['token'])){
-      $response = poster('user','get',array('token'=>$_SESSION['token']));
+    if(!empty($array)){
+      global $api_token;
+      $response = poster('user','get',array('token'=>$api_token,'user_id'=>$array));
       return $response->body;
     } else {
-      throw new Exception('No token provided. Please provide one.');
+      if(isset($_SESSION['token'])){
+        $response = poster('user','get',array('token'=>$_SESSION['token']));
+        return $response->body;
+      } else {
+        throw new Exception('No token provided. Please provide one.');
+      }
     }
   }
   
