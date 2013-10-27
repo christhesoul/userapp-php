@@ -16,21 +16,27 @@ class User {
   
   static function logout()
   {
-    if($_SESSION['token']) $token = $_SESSION['token'];
-    $response = poster('user','logout',array('token'=>$token));
+    $token = $_SESSION['token'];
     unset($_SESSION['token']);
-    return $response;
+    $response = poster('user','logout',array('token'=>$token));
+    return $response->body;
   }
   
-  static function get($token = false)
+  static function get()
   {
-    if(!$token && isset($_SESSION['token'])) $token = $_SESSION['token'];
-    if($token){
-      $response = poster('user','get',array('token'=>$token));
-      return $response->body[0];
+    if(isset($_SESSION['token'])){
+      $response = poster('user','get',array('token'=>$_SESSION['token']));
+      return $response->body;
     } else {
       throw new Exception('No token provided. Please provide one.');
     }
+  }
+  
+  static function resetPassword($login)
+  {
+    global $api_token;
+    $response = poster('user','resetPassword',array('token'=>$api_token,'login'=>$login));
+    return $response->body;
   }
   
 }
